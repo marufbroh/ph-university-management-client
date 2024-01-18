@@ -5,6 +5,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -38,7 +39,7 @@ const MainLayout = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "4rem"
+            height: "4rem",
           }}
         >
           <h1>PH Uni</h1>
@@ -60,6 +61,7 @@ const MainLayout = () => {
             }}
           >
             <h1>The main content go here</h1>
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
