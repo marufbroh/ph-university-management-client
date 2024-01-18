@@ -21,7 +21,7 @@ const items = [
 
 const MainLayout = () => {
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -32,7 +32,17 @@ const MainLayout = () => {
           console.log(collapsed, type);
         }}
       >
-        <div className="demo-logo-vertical" />
+        <div
+          style={{
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "4rem"
+          }}
+        >
+          <h1>PH Uni</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
