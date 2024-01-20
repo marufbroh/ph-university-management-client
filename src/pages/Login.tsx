@@ -1,22 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Checkbox, Form, Input } from "antd";
 import { useLoginMutation } from "../redux/features/auth/authApi";
+import { useAppDispatch } from "../redux/hooks";
+import { setUser } from "../redux/features/auth/authSlice";
+import { verifyToken } from "../utils/verifyToken";
 
 type FieldType = {
   id?: string;
   password?: string;
-//   remember?: string;
+  //   remember?: string;
 };
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+
   const [login, { data, error }] = useLoginMutation();
 
-  console.log("data", data);
-  console.log("error", error);
+  const onFinish = async (values) => {
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+    const res = await login(values).unwrap();
+    const user = verifyToken(res.data.accessToken);
 
-    login(values);
+    dispatch(setUser({ user, token: res.data.accessToken }));
   };
 
   const onFinishFailed = (errorInfo: any) => {
