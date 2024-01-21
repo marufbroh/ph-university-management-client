@@ -14,6 +14,11 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const defaultValues = {
+    id: "A-0001",
+    password: "admin123",
+  };
+
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {
@@ -33,7 +38,7 @@ const Login = () => {
 
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
-      <PHForm onSubmit={onSubmit}>
+      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
         <PHInput type={"text"} name={"id"} label={"ID: "} />
         <PHInput type={"text"} name={"password"} label={"Password: "} />
         <Button htmlType="submit">Login</Button>
