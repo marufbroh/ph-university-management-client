@@ -4,6 +4,8 @@ import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 type FieldType = {
   id?: string;
@@ -12,16 +14,23 @@ type FieldType = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [login, { data, error }] = useLoginMutation();
 
   const onFinish = async (values) => {
+    toast.loading("Logging in");
+    try {
+      const res = await login(values).unwrap();
+      const user = verifyToken(res.data.accessToken);
 
-    const res = await login(values).unwrap();
-    const user = verifyToken(res.data.accessToken);
-
-    dispatch(setUser({ user, token: res.data.accessToken }));
+      dispatch(setUser({ user, token: res.data.accessToken }));
+      toast.success("Logged in");
+      navigate(`/${user.role}/dashboard`);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
