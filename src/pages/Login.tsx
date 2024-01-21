@@ -7,6 +7,8 @@ import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
 
 type FieldType = {
   id?: string;
@@ -34,51 +36,18 @@ const Login = () => {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="ID"
-        name="id"
-        rules={[{ required: true, message: "Please input your ID!" }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      {/* <Form.Item<FieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+    <PHForm onSubmit={onsubmit}>
+      <div>
+        <label htmlFor="id">ID: </label>
+        <PHInput type={"text"} name={"userId"} />
+      </div>
+      <div>
+        <label htmlFor="password">Password: </label>
+        <PHInput type={"text"} name={"password"} />
+      </div>
+      <Button htmlType="submit">Login</Button>
+    </PHForm>
   );
 };
 
