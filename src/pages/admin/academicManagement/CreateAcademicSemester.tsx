@@ -1,11 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
-import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
-import { semesterOptions } from "../../../constants/semester";
 import { monthOptions } from "../../../constants/global";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { semesterOptions } from "../../../constants/semester";
+import { academicSemesterSchema } from "../../../schemas/academicManagement.schema";
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
@@ -27,14 +27,13 @@ const CreateAcademicSemester = () => {
     console.log(semesterData);
   };
 
-  const academicSemesterSchema = z.object({
-    
-  })
-
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
+        <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicSemesterSchema)}
+        >
           <PHSelect label={"Name"} name={"name"} options={semesterOptions} />
           <PHSelect label={"Year"} name={"year"} options={yearOptions} />
           <PHSelect
