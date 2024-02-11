@@ -2,6 +2,7 @@ import type { TableColumnsType, TableProps } from "antd";
 import { Table } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { useState } from "react";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -11,54 +12,47 @@ export type TTableData = Pick<
 const columns: TableColumnsType<TTableData> = [
   {
     title: "Name",
+    key: "name",
     dataIndex: "name",
     filters: [
       {
-        text: "Joe",
-        value: "Joe",
+        text: "Autumn",
+        value: "Autumn",
       },
       {
-        text: "Jim",
-        value: "Jim",
+        text: "Summer",
+        value: "Summer",
       },
       {
-        text: "Submenu",
-        value: "Submenu",
-        children: [
-          {
-            text: "Green",
-            value: "Green",
-          },
-          {
-            text: "Black",
-            value: "Black",
-          },
-        ],
+        text: "Fall",
+        value: "Fall",
       },
     ],
   },
   {
     title: "Year",
+    key: "year",
     dataIndex: "year",
   },
   {
     title: "Start Month",
+    key: "startMonth",
     dataIndex: "startMonth",
   },
   {
     title: "End Month",
+    key: "endMonth",
     dataIndex: "endMonth",
   },
 ];
 
 const AcademicSemester = () => {
-  const { data: semesterData } = useGetAllSemestersQuery([
-    { name: "year", value: "2025" },
-  ]);
+  const [params, setParams] = useState([]);
+  const { data: semesterData } = useGetAllSemestersQuery(params);
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
-      _id,
+      key: _id,
       name,
       startMonth,
       endMonth,
@@ -72,10 +66,17 @@ const AcademicSemester = () => {
     sorter,
     extra
   ) => {
-    console.log("params", pagination, filters, sorter, extra);
+    if (extra.action === "filter") {
+      const queryParams: any = [];
+      filters.name?.forEach((item) => {
+        queryParams.push({ name: "name", value: item });
+      });
+      setParams(queryParams)
+    }
+    console.log({ filters, extra });
   };
 
-  console.log(tableData);
+  //   console.log(tableData);
   return <Table columns={columns} dataSource={tableData} onChange={onChange} />;
 };
 
