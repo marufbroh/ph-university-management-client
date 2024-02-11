@@ -4,11 +4,11 @@ import type { TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 
 interface DataType {
-//   key: React.Key;
+  //   key: React.Key;
   name: string;
   year: string;
-  startMonth: string; 
-  endMonth: string; 
+  startMonth: string;
+  endMonth: string;
 }
 
 const columns: TableColumnsType<DataType> = [
@@ -57,7 +57,7 @@ const columns: TableColumnsType<DataType> = [
 const AcademicSemester = () => {
   const { data: semesterData } = useGetAllSemestersQuery(undefined);
 
-  const tableData = semesterData?.data.map(
+  const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
       _id,
       name,
