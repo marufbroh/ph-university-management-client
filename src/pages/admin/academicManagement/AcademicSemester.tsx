@@ -73,14 +73,14 @@ const AcademicSemester = () => {
       startMonth,
       endMonth,
       year,
-    })
+    }),
   );
 
   const onChange: TableProps<TTableData>["onChange"] = (
     _pagination,
     filters,
     _sorter,
-    extra
+    extra,
   ) => {
     if (extra.action === "filter") {
       const queryParams: TQueryParam[] = [];
