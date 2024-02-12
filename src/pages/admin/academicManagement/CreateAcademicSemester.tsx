@@ -38,7 +38,6 @@ const CreateAcademicSemester = () => {
       } else {
         toast.success("Semester Created", { id: toastId });
       }
-      console.log(res);
     } catch (error) {
       toast.error("Something went wrong", { id: toastId });
     }
