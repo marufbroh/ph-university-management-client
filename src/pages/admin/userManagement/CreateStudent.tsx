@@ -39,10 +39,17 @@ const studentDummyData = {
 };
 
 const CreateStudent = () => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    // console.log(data);
 
-const onSubmit: SubmitHandler<FieldValues> = (data) => {
-console.log(data);
-}
+    const formData = new FormData();
+
+    formData.append("data", JSON.stringify(data));
+
+    //! This is for development
+    //! Just for checking
+    console.log(Object.fromEntries(formData));
+  };
 
   return (
     <PHForm onSubmit={onSubmit}>
