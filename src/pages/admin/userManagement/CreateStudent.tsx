@@ -1,7 +1,7 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
-import { Button } from "antd";
+import { Button, Col, Row } from "antd";
 
 const studentDummyData = {
   password: "student123",
@@ -52,10 +52,24 @@ const CreateStudent = () => {
   };
 
   return (
-    <PHForm onSubmit={onSubmit}>
-      <PHInput type="text" name="name" label="Name" />
-      <Button htmlType="submit">Submit</Button>
-    </PHForm>
+    <Row>
+      <Col span={24}>
+        <PHForm onSubmit={onSubmit}>
+          <Row gutter={8}>
+            <Col span={24} lg={{span: 8}}>
+              <PHInput type="text" name="name" label="Name" />
+            </Col>
+            <Col span={24} lg={{span: 8}}>
+              <PHInput type="text" name="name" label="Name" />
+            </Col>
+            <Col span={24} lg={{span: 8}}>
+              <PHInput type="text" name="name" label="Name" />
+            </Col>
+          </Row>
+          <Button htmlType="submit">Submit</Button>
+        </PHForm>
+      </Col>
+    </Row>
   );
 };
 

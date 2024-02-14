@@ -1,5 +1,4 @@
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
-import React from "react";
+import { BaseQueryApi } from '@reduxjs/toolkit/query';
 
 export type TError = {
   data: {
