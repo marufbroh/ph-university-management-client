@@ -6,7 +6,7 @@ import PHSelect from "../../../components/form/PHSelect";
 import { monthOptions } from "../../../constants/global";
 import { semesterOptions } from "../../../constants/semester";
 import { academicSemesterSchema } from "../../../schemas/academicManagement.schema";
-import { useAddAcademicSemestersMutation } from "../../../redux/features/admin/academicManagement.api";
+import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
 import { TResponse } from "../../../types/global";
 
@@ -17,7 +17,7 @@ const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
 }));
 
 const CreateAcademicSemester = () => {
-  const [addAcademicSemester] = useAddAcademicSemestersMutation();
+  const [addAcademicSemester] = useAddAcademicSemesterMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating...");
