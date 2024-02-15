@@ -1,5 +1,5 @@
 {
-  "name": "ph-university-management-client",
+  "name": "phum-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
     "antd": "^5.13.1",

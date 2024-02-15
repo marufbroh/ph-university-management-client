@@ -1,104 +1,111 @@
-import {
-  Button,
-  Pagination,
-  Space,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from 'antd';
-import { useState } from 'react';
-import { TQueryParam, TStudent } from '../../../types';
-import { useGetAllStudentsQuery } from '../../../redux/features/admin/userManagement.api';
-import { Link } from 'react-router-dom';
+import { Button, Table, TableColumnsType, TableProps } from "antd";
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { useState } from "react";
+import { TQueryParam } from "../../../types";
 
 export type TTableData = Pick<
-  TStudent,
-  'fullName' | 'id' | 'email' | 'contactNo'
+  TAcademicSemester,
+  "name" | "year" | "startMonth" | "endMonth"
 >;
 
-const StudentData = () => {
-  const [params, setParams] = useState<TQueryParam[]>([]);
-  const [page, setPage] = useState(1);
+const AcademicSemester = () => {
+  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
   const {
-    data: studentData,
+    data: semesterData,
     isLoading,
     isFetching,
-  } = useGetAllStudentsQuery([
-    { name: 'page', value: page },
-    { name: 'sort', value: 'id' },
-    ...params,
-  ]);
+  } = useGetAllSemestersQuery(params);
 
   console.log({ isLoading, isFetching });
 
-  const metaData = studentData?.meta;
-
-  const tableData = studentData?.data?.map(
-    ({ _id, fullName, id, email, contactNo }) => ({
+  const tableData = semesterData?.data?.map(
+    ({ _id, name, startMonth, endMonth, year }) => ({
       key: _id,
-      fullName,
-      id,
-      email,
-      contactNo,
-    })
+      name,
+      startMonth,
+      endMonth,
+      year,
+    }),
   );
 
   const columns: TableColumnsType<TTableData> = [
     {
-      title: 'Name',
-      key: 'name',
-      dataIndex: 'fullName',
-    },
-
-    {
-      title: 'Roll No.',
-      key: 'id',
-      dataIndex: 'id',
-    },
-    {
-      title: 'Email',
-      key: 'email',
-      dataIndex: 'email',
-    },
-    {
-      title: 'Contact No.',
-      key: 'contactNo',
-      dataIndex: 'contactNo',
+      title: "Name",
+      key: "name",
+      dataIndex: "name",
+      filters: [
+        {
+          text: "Autumn",
+          value: "Autumn",
+        },
+        {
+          text: "Fall",
+          value: "Fall",
+        },
+        {
+          text: "Summer",
+          value: "Summer",
+        },
+      ],
     },
     {
-      title: 'Action',
-      key: 'x',
-      render: (item) => {
-        console.log(item);
+      title: "Year",
+      key: "year",
+      dataIndex: "year",
+      filters: [
+        {
+          text: "2024",
+          value: "2024",
+        },
+        {
+          text: "2025",
+          value: "2025",
+        },
+        {
+          text: "2026",
+          value: "2026",
+        },
+      ],
+    },
+    {
+      title: "Start Month",
+      key: "startMonth",
+      dataIndex: "startMonth",
+    },
+    {
+      title: "End Month",
+      key: "endMonth",
+      dataIndex: "endMonth",
+    },
+    {
+      title: "Action",
+      key: "x",
+      render: () => {
         return (
-          <Space>
-            <Link to={`/admin/student-data/${item.key}`}>
-              <Button>Details</Button>
-            </Link>
+          <div>
             <Button>Update</Button>
-            <Button>Block</Button>
-          </Space>
+          </div>
         );
       },
-      width: '1%',
     },
   ];
 
-  const onChange: TableProps<TTableData>['onChange'] = (
+  const onChange: TableProps<TTableData>["onChange"] = (
     _pagination,
     filters,
     _sorter,
-    extra
+    extra,
   ) => {
-    if (extra.action === 'filter') {
+    if (extra.action === "filter") {
       const queryParams: TQueryParam[] = [];
 
       filters.name?.forEach((item) =>
-        queryParams.push({ name: 'name', value: item })
+        queryParams.push({ name: "name", value: item }),
       );
 
       filters.year?.forEach((item) =>
-        queryParams.push({ name: 'year', value: item })
+        queryParams.push({ name: "year", value: item }),
       );
 
       setParams(queryParams);
@@ -106,22 +113,13 @@ const StudentData = () => {
   };
 
   return (
-    <>
-      <Table
-        loading={isFetching}
-        columns={columns}
-        dataSource={tableData}
-        onChange={onChange}
-        pagination={false}
-      />
-      <Pagination
-        current={page}
-        onChange={(value) => setPage(value)}
-        pageSize={metaData?.limit}
-        total={metaData?.total}
-      />
-    </>
+    <Table
+      loading={isFetching}
+      columns={columns}
+      dataSource={tableData}
+      onChange={onChange}
+    />
   );
 };
 
-export default StudentData;
+export default AcademicSemester;

@@ -1,5 +1,9 @@
 const FacultyDashboard = () => {
-  return <div>FacultyDashboard</div>;
+  return (
+    <div>
+      <h1> This is FacultyDashboard component </h1>
+    </div>
+  );
 };
 
 export default FacultyDashboard;
