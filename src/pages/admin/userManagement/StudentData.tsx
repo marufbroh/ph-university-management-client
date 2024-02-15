@@ -1,78 +1,76 @@
 import type { TableColumnsType, TableProps } from "antd";
-import { Button, Progress, Table } from "antd";
+import { Button, Progress, Space, Table } from "antd";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
-import { TQueryParam } from "../../../types";
+import { TQueryParam, TStudent } from "../../../types";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
+import { Link } from "react-router-dom";
 
 export type TTableData = Pick<
-  TAcademicSemester,
-  "name" | "startMonth" | "endMonth" | "year"
+  TStudent,
+  "fullName" | "id" | "email" | "contactNo"
 >;
 
 const columns: TableColumnsType<TTableData> = [
   {
     title: "Name",
     key: "name",
-    dataIndex: "name",
-    filters: [
-      {
-        text: "Autumn",
-        value: "Autumn",
-      },
-      {
-        text: "Summer",
-        value: "Summer",
-      },
-      {
-        text: "Fall",
-        value: "Fall",
-      },
-    ],
+    dataIndex: "fullName",
+  },
+
+  {
+    title: "Roll No.",
+    key: "id",
+    dataIndex: "id",
   },
   {
-    title: "Year",
-    key: "year",
-    dataIndex: "year",
+    title: "Email",
+    key: "email",
+    dataIndex: "email",
   },
   {
-    title: "Start Month",
-    key: "startMonth",
-    dataIndex: "startMonth",
-  },
-  {
-    title: "End Month",
-    key: "endMonth",
-    dataIndex: "endMonth",
+    title: "Contact No.",
+    key: "contactNo",
+    dataIndex: "contactNo",
   },
   {
     title: "Action",
     key: "x",
-    render: () => {
+    render: (item) => {
+      console.log(item);
       return (
-        <div>
+        <Space>
+          <Link to={`/admin/student-data/${item.key}`}>
+            <Button>Details</Button>
+          </Link>
           <Button>Update</Button>
-        </div>
+          <Button>Block</Button>
+        </Space>
       );
     },
+    width: "1%",
   },
 ];
 
 const StudentData = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [ page, setPage] = useState(1)
   const {
-    data: semesterData,
+    data: studentData,
     isLoading,
     isFetching,
-  } = useGetAllStudentsQuery(params);
+  } = useGetAllStudentsQuery([{ name: "limit", value: 3 },
+  {name: "page", value: page},
+  {name: "sort", value: "id"},
+  ...params]);
 
-  const tableData = semesterData?.data?.map(
-    ({ _id, name, startMonth, endMonth, year }) => ({
+  const tableData = studentData?.data?.map(
+    ({ _id, fullName, id, email, contactNo }) => ({
       key: _id,
-      name,
-      startMonth,
-      endMonth,
-      year,
+      fullName,
+      id,
+      email,
+      contactNo,
     })
   );
 

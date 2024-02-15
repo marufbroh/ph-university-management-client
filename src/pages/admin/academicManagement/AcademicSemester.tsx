@@ -1,109 +1,127 @@
-import type { TableColumnsType, TableProps } from "antd";
-import { Button, Progress, Table } from "antd";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
-import { TAcademicSemester } from "../../../types/academicManagement.type";
-import { useState } from "react";
-import { TQueryParam } from "../../../types";
+import {
+  Button,
+  Pagination,
+  Space,
+  Table,
+  TableColumnsType,
+  TableProps,
+} from 'antd';
+import { useState } from 'react';
+import { TQueryParam, TStudent } from '../../../types';
+import { useGetAllStudentsQuery } from '../../../redux/features/admin/userManagement.api';
+import { Link } from 'react-router-dom';
 
 export type TTableData = Pick<
-  TAcademicSemester,
-  "name" | "startMonth" | "endMonth" | "year"
+  TStudent,
+  'fullName' | 'id' | 'email' | 'contactNo'
 >;
 
-const columns: TableColumnsType<TTableData> = [
-  {
-    title: "Name",
-    key: "name",
-    dataIndex: "name",
-    filters: [
-      {
-        text: "Autumn",
-        value: "Autumn",
-      },
-      {
-        text: "Summer",
-        value: "Summer",
-      },
-      {
-        text: "Fall",
-        value: "Fall",
-      },
-    ],
-  },
-  {
-    title: "Year",
-    key: "year",
-    dataIndex: "year",
-  },
-  {
-    title: "Start Month",
-    key: "startMonth",
-    dataIndex: "startMonth",
-  },
-  {
-    title: "End Month",
-    key: "endMonth",
-    dataIndex: "endMonth",
-  },
-  {
-    title: "Action",
-    key: "x",
-    render: () => {
-      return (
-        <div>
-          <Button>Update</Button>
-        </div>
-      );
-    },
-  },
-];
-
-const AcademicSemester = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+const StudentData = () => {
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
   const {
-    data: semesterData,
+    data: studentData,
     isLoading,
     isFetching,
-  } = useGetAllSemestersQuery(params);
+  } = useGetAllStudentsQuery([
+    { name: 'page', value: page },
+    { name: 'sort', value: 'id' },
+    ...params,
+  ]);
 
-  const tableData = semesterData?.data?.map(
-    ({ _id, name, startMonth, endMonth, year }) => ({
+  console.log({ isLoading, isFetching });
+
+  const metaData = studentData?.meta;
+
+  const tableData = studentData?.data?.map(
+    ({ _id, fullName, id, email, contactNo }) => ({
       key: _id,
-      name,
-      startMonth,
-      endMonth,
-      year,
+      fullName,
+      id,
+      email,
+      contactNo,
     })
   );
 
-  const onChange: TableProps<TTableData>["onChange"] = (
+  const columns: TableColumnsType<TTableData> = [
+    {
+      title: 'Name',
+      key: 'name',
+      dataIndex: 'fullName',
+    },
+
+    {
+      title: 'Roll No.',
+      key: 'id',
+      dataIndex: 'id',
+    },
+    {
+      title: 'Email',
+      key: 'email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'Contact No.',
+      key: 'contactNo',
+      dataIndex: 'contactNo',
+    },
+    {
+      title: 'Action',
+      key: 'x',
+      render: (item) => {
+        console.log(item);
+        return (
+          <Space>
+            <Link to={`/admin/student-data/${item.key}`}>
+              <Button>Details</Button>
+            </Link>
+            <Button>Update</Button>
+            <Button>Block</Button>
+          </Space>
+        );
+      },
+      width: '1%',
+    },
+  ];
+
+  const onChange: TableProps<TTableData>['onChange'] = (
     _pagination,
     filters,
     _sorter,
     extra
   ) => {
-    if (extra.action === "filter") {
+    if (extra.action === 'filter') {
       const queryParams: TQueryParam[] = [];
-      filters.name?.forEach((item) => {
-        queryParams.push({ name: "name", value: item });
-      });
+
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: 'name', value: item })
+      );
+
+      filters.year?.forEach((item) =>
+        queryParams.push({ name: 'year', value: item })
+      );
+
       setParams(queryParams);
     }
   };
 
-  if (isLoading) {
-    const twoColors = { "0%": "#108ee9", "100%": "#87d068" };
-    return <Progress percent={99.9} strokeColor={twoColors} />;
-  }
-
   return (
-    <Table
-      loading={isFetching}
-      columns={columns}
-      dataSource={tableData}
-      onChange={onChange}
-    />
+    <>
+      <Table
+        loading={isFetching}
+        columns={columns}
+        dataSource={tableData}
+        onChange={onChange}
+        pagination={false}
+      />
+      <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        pageSize={metaData?.limit}
+        total={metaData?.total}
+      />
+    </>
   );
 };
 
-export default AcademicSemester;
+export default StudentData;
