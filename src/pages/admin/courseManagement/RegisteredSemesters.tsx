@@ -70,6 +70,7 @@ const RegisteredSemesters = () => {
       key: 'status',
       dataIndex: 'status',
       render: (item) => {
+        // console.log(item);
         let color;
         if (item === 'UPCOMING') {
           color = 'blue';
@@ -98,6 +99,7 @@ const RegisteredSemesters = () => {
       title: 'Action',
       key: 'x',
       render: (item) => {
+        // console.log(item);
         return (
           <Dropdown menu={menuProps} trigger={['click']}>
             <Button onClick={() => setSemesterId(item.key)}>Update</Button>
