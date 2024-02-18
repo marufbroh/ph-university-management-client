@@ -1,12 +1,12 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
-import { toast } from "sonner";
-import { Button, Col, Flex } from "antd";
 import PHForm from "../../../components/form/PHForm";
+import { Button, Col, Flex } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
+import { semesterStatusOptions } from "../../../constants/semester";
+import { toast } from "sonner";
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHInput from "../../../components/form/PHInput";
-import { semesterStatusOptions } from "../../../constants/semester";
 import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement";
 import { TResponse } from "../../../types";
 
@@ -38,10 +38,10 @@ const SemesterRegistration = () => {
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.success('Semester created', { id: toastId });
+        toast.success("Semester created", { id: toastId });
       }
     } catch (err) {
-      toast.error('Something went wrong', { id: toastId });
+      toast.error("Something went wrong", { id: toastId });
     }
   };
 
