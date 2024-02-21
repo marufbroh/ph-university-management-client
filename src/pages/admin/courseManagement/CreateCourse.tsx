@@ -1,14 +1,14 @@
-import { FieldValues, SubmitHandler } from 'react-hook-form';
-import PHForm from '../../../components/form/PHForm';
-import { Button, Col, Flex } from 'antd';
-import PHSelect from '../../../components/form/PHSelect';
-import { toast } from 'sonner';
-import PHInput from '../../../components/form/PHInput';
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import PHForm from "../../../components/form/PHForm";
+import { Button, Col, Flex } from "antd";
+import PHSelect from "../../../components/form/PHSelect";
+import { toast } from "sonner";
+import PHInput from "../../../components/form/PHInput";
 import {
   useAddCourseMutation,
   useGetAllCoursesQuery,
-} from '../../../redux/features/admin/courseManagement';
-import { TResponse } from '../../../types';
+} from "../../../redux/features/admin/courseManagement";
+import { TResponse } from "../../../types";
 
 const CreateCourse = () => {
   const [createCourse] = useAddCourseMutation();
@@ -20,7 +20,7 @@ const CreateCourse = () => {
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading('Creating...');
+    const toastId = toast.loading("Creating...");
 
     const courseData = {
       ...data,
@@ -43,10 +43,10 @@ const CreateCourse = () => {
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.success('Semester created', { id: toastId });
+        toast.success("Semester created", { id: toastId });
       }
     } catch (err) {
-      toast.error('Something went wrong', { id: toastId });
+      toast.error("Something went wrong", { id: toastId });
     }
   };
 
@@ -62,7 +62,7 @@ const CreateCourse = () => {
             mode="multiple"
             options={preRequisiteCoursesOptions}
             name="preRequisiteCourses"
-            label="preRequisiteCourses"
+            label="Pre Requisite Courses"
           />
           <Button htmlType="submit">Submit</Button>
         </PHForm>
