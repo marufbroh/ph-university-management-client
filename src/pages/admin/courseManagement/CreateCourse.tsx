@@ -43,7 +43,7 @@ const CreateCourse = () => {
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.success("Semester created", { id: toastId });
+        toast.success("Courses created", { id: toastId });
       }
     } catch (err) {
       toast.error("Something went wrong", { id: toastId });
