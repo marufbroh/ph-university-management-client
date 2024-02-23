@@ -33,7 +33,7 @@ const Courses = () => {
     {
       title: "Action",
       key: "x",
-      render: (item: any) => {
+      render: (item) => {
         return <AddFacultyModal facultyInfo={item} />;
       },
     },
@@ -61,7 +61,7 @@ const Courses = () => {
   );
 };
 
-const AddFacultyModal = ({ facultyInfo }: { facultyInfo: any }) => {
+const AddFacultyModal = ({ facultyInfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: facultiesData } = useGetAllFacultiesQuery(undefined);
   const [addFaculties] = useAddFacultiesMutation();
@@ -80,6 +80,7 @@ const AddFacultyModal = ({ facultyInfo }: { facultyInfo: any }) => {
     console.log(facultyData);
 
     addFaculties(facultyData);
+    setIsModalOpen(false);
   };
 
   const showModal = () => {
