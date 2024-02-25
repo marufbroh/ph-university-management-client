@@ -3,7 +3,12 @@ import { useAppSelector } from "../../redux/hooks";
 import { useCurrentToken } from "../../redux/features/auth/authSlice";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+type TProtectedRoute = {
+  children: ReactNode;
+  role: string;
+};
+
+const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const token = useAppSelector(useCurrentToken);
 
   if (!token) {
