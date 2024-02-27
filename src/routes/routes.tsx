@@ -1,20 +1,21 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import { adminPaths } from "./admin.routes";
-import { routeGenerator } from "../utils/routesGenerator";
-import { facultyPaths } from "./faculty.routes";
-import { studentPaths } from "./student.routes";
-import ProtectedRoute from "../components/layout/ProtectedRoute";
+import { createBrowserRouter } from 'react-router-dom';
+import App from '../App';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import { adminPaths } from './admin.routes';
+import { routeGenerator } from '../utils/routesGenerator';
+import { facultyPaths } from './faculty.routes';
+import { studentPaths } from './student.routes';
+import ProtectedRoute from '../components/layout/ProtectedRoute';
+import ChangePassword from '../pages/ChangePassword';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
   },
   {
-    path: "/admin",
+    path: '/admin',
     element: (
       <ProtectedRoute role="admin">
         <App />
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     children: routeGenerator(adminPaths),
   },
   {
-    path: "/faculty",
+    path: '/faculty',
     element: (
       <ProtectedRoute role="faculty">
         <App />
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
     children: routeGenerator(facultyPaths),
   },
   {
-    path: "/student",
+    path: '/student',
     element: (
       <ProtectedRoute role="student">
         <App />
@@ -41,11 +42,15 @@ const router = createBrowserRouter([
     children: routeGenerator(studentPaths),
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   {
-    path: "/register",
+    path: '/change-password',
+    element: <ChangePassword />,
+  },
+  {
+    path: '/register',
     element: <Register />,
   },
 ]);
