@@ -1,8 +1,8 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row } from "antd";
 import {
   useEnrolCourseMutation,
   useGetAllOfferedCoursesQuery,
-} from '../../redux/features/student/studentCourseManagement.api';
+} from "../../redux/features/student/studentCourseManagement.api";
 
 type TCourse = {
   [index: string]: any;
@@ -44,8 +44,8 @@ const OfferedCourse = () => {
     <Row gutter={[0, 20]}>
       {modifiedData.map((item) => {
         return (
-          <Col span={24} style={{ border: 'solid #d4d4d4 2px' }}>
-            <div style={{ padding: '10px' }}>
+          <Col span={24} style={{ border: "solid #d4d4d4 2px" }}>
+            <div style={{ padding: "10px" }}>
               <h2>{item.courseTitle}</h2>
             </div>
             <div>
@@ -54,11 +54,11 @@ const OfferedCourse = () => {
                   <Row
                     justify="space-between"
                     align="middle"
-                    style={{ borderTop: 'solid #d4d4d4 2px', padding: '10px' }}
+                    style={{ borderTop: "solid #d4d4d4 2px", padding: "10px" }}
                   >
                     <Col span={5}>Section: {section.section} </Col>
                     <Col span={5}>
-                      days:{' '}
+                      days:{" "}
                       {section.days.map((day) => (
                         <span> {day} </span>
                       ))}

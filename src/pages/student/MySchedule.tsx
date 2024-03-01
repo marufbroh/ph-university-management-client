@@ -1,4 +1,4 @@
-import { useGetAllEnrolledCoursesQuery } from '../../redux/features/student/studentCourseManagement.api';
+import { useGetAllEnrolledCoursesQuery } from "../../redux/features/student/studentCourseManagement.api";
 
 const MySchedule = () => {
   const { data } = useGetAllEnrolledCoursesQuery(undefined);

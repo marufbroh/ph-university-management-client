@@ -1,9 +1,9 @@
-import { Button, Col, Flex } from 'antd';
-import PHForm from '../../components/form/PHForm';
-import PHSelect from '../../components/form/PHSelect';
-import { useGetAllFacultyCoursesQuery } from '../../redux/features/faculty/facultyCourses.api';
-import { useNavigate } from 'react-router-dom';
-import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { Button, Col, Flex } from "antd";
+import PHForm from "../../components/form/PHForm";
+import PHSelect from "../../components/form/PHSelect";
+import { useGetAllFacultyCoursesQuery } from "../../redux/features/faculty/facultyCourses.api";
+import { useNavigate } from "react-router-dom";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const MyCourses = () => {
   const { data: facultyCoursesData } = useGetAllFacultyCoursesQuery(undefined);
