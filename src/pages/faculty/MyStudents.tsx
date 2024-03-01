@@ -1,12 +1,13 @@
-import { Button, Modal, Table } from "antd";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-import PHForm from "../../components/form/PHForm";
-import PHInput from "../../components/form/PHInput";
 import {
   useAddMarkMutation,
   useGetAllFacultyCoursesQuery,
 } from "../../redux/features/faculty/facultyCourses.api";
+import { Button, Modal, Table, TableColumnsType } from "antd";
+import { useState } from "react";
+import PHForm from "../../components/form/PHForm";
+import PHSelect from "../../components/form/PHSelect";
+import PHInput from "../../components/form/PHInput";
 
 const MyStudents = () => {
   const { registerSemesterId, courseId } = useParams();

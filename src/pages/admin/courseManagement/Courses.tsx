@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import PHForm from "../../../components/form/PHForm";
 import PHSelect from "../../../components/form/PHSelect";
+import { useGetAcademicFacultiesQuery } from "../../../redux/features/admin/academicManagement.api";
 import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagement.api";
 
 const Courses = () => {
@@ -80,7 +81,6 @@ const AddFacultyModal = ({ facultyInfo }) => {
     console.log(facultyData);
 
     addFaculties(facultyData);
-    setIsModalOpen(false);
   };
 
   const showModal = () => {

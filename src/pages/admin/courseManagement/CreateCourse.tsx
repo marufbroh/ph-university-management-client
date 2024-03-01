@@ -43,7 +43,7 @@ const CreateCourse = () => {
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
       } else {
-        toast.success("Courses created", { id: toastId });
+        toast.success("Semester created", { id: toastId });
       }
     } catch (err) {
       toast.error("Something went wrong", { id: toastId });
@@ -62,7 +62,7 @@ const CreateCourse = () => {
             mode="multiple"
             options={preRequisiteCoursesOptions}
             name="preRequisiteCourses"
-            label="Pre Requisite Courses"
+            label="preRequisiteCourses"
           />
           <Button htmlType="submit">Submit</Button>
         </PHForm>

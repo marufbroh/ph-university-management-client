@@ -6,7 +6,7 @@ import { useChangePasswordMutation } from "../redux/features/admin/userManagemen
 import { TResponse } from "../types";
 import { useAppDispatch } from "../redux/hooks";
 import { logout } from "../redux/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [changePassword] = useChangePasswordMutation();
@@ -14,10 +14,10 @@ const ChangePassword = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // console.log(data);
+    console.log(data);
 
     const res = (await changePassword(data)) as TResponse<any>;
-    // console.log(res?.data?.success);
+    console.log(res?.data?.success);
     if (res?.data?.success) {
       dispatch(logout());
       navigate("/login");
