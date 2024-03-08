@@ -1,11 +1,10 @@
 import { ReactNode } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { Navigate } from "react-router-dom";
 import {
   logout,
-  selectCurrentUser,
-  useCurrentToken,
+  useCurrentToken
 } from "../../redux/features/auth/authSlice";
-import { Navigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { verifyToken } from "../../utils/verifyToken";
 
 type TProtectedRoute = {

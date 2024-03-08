@@ -1,12 +1,12 @@
 import { Button, Row } from "antd";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useChangePasswordMutation } from "../redux/features/admin/userManagement.api";
-import { TResponse } from "../types";
-import { useAppDispatch } from "../redux/hooks";
 import { logout } from "../redux/features/auth/authSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { TResponse } from "../types";
 
 const ChangePassword = () => {
   const [changePassword] = useChangePasswordMutation();

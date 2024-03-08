@@ -1,14 +1,13 @@
 import { Layout, Menu } from "antd";
-import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
+import {
+  TUser,
+  useCurrentToken
+} from "../../redux/features/auth/authSlice";
+import { useAppSelector } from "../../redux/hooks";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
-import { useAppSelector } from "../../redux/hooks";
-import {
-  TUser,
-  selectCurrentUser,
-  useCurrentToken,
-} from "../../redux/features/auth/authSlice";
+import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { verifyToken } from "../../utils/verifyToken";
 
 const { Sider } = Layout;
